@@ -1,75 +1,53 @@
-# React + TypeScript + Vite
+# Chess.Live
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Site para encontrar streamers do [Chess.com](https://www.chess.com/) que estão ao vivo agora. A lista vem da [API pública de streamers](https://api.chess.com/pub/streamers), com busca instantânea e links para Twitch e perfil.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Carrega a lista automaticamente ao abrir a página
+- Streamers ao vivo primeiro, depois offline, ambos em ordem alfabética
+- Busca em tempo real pelo username
+- Atualização manual da lista
+- Tema claro/escuro (segue o sistema na primeira visita e fica salvo no navegador)
+- Layout mobile-first: 1 coluna no celular, 2 no tablet, 4 no desktop
+- Infinite scroll no celular e no tablet; paginação de 10 itens no desktop
+- Estados de loading, erro e lista vazia
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19 + TypeScript
+- Vite
+- Tailwind CSS v4
 
-## Expanding the ESLint configuration
+## Como rodar
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Requisitos: Node.js 20+.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Abra [http://localhost:5173](http://localhost:5173).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Outros comandos:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build    # build de produção
+npm run preview  # preview do build
+npm run lint     # ESLint
+```
+
+## API
+
+Os dados são fornecidos pela API pública oficial do Chess.com:
 
 ```
+GET https://api.chess.com/pub/streamers
+```
+
+Não há backend: o frontend faz o `fetch` direto no navegador.
+
+## Autor
+
+Desenvolvido por [Pablo Yuri](https://github.com/pylopes).
